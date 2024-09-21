@@ -205,7 +205,7 @@ feature! {
         }
     }
 
-    impl<T, R, const CAPACITY: usize> StaticChannel<T, Capacity, R>
+    impl<T, R, const CAPACITY: usize> StaticChannel<T, CAPACITY, R>
         where R: Recycle<T>
     {
         #[must_use]
