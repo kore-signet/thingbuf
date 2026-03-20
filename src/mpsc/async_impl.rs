@@ -945,6 +945,20 @@ feature! {
         }
     }
 
+    impl<T, R, const CAPACITY: usize> StaticChannel<T, CAPACITY, R>
+        where R: Recycle<T>
+    {
+        #[must_use]
+        pub const fn with_recycle(recycle: R) -> Self {
+            Self {
+                core: ChannelCore::new(CAPACITY),
+                slots: Slot::make_static_array::<CAPACITY>(),
+                is_split: AtomicBool::new(false),
+                recycle
+            }
+        }
+    }
+
     impl<T, R, const CAPACITY: usize> StaticChannel<T, CAPACITY, R> {
         /// Split a [`StaticChannel`] into a [`StaticSender`]/[`StaticReceiver`]
         /// pair.
