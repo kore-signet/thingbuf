@@ -1313,7 +1313,7 @@ feature! {
         }
     }
 
-    impl<T> Clone for StaticSender<T> {
+    impl<T, R> Clone for StaticSender<T, R> {
         fn clone(&self) -> Self {
             test_dbg!(self.core.tx_count.fetch_add(1, Ordering::Relaxed));
             Self {
